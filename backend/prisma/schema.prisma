@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  COMPANY
+  ADMIN
+}
+
+enum AppStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+}
+
+enum ListingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CLOSED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  student   Student?
+  company   Company?
+
+  @@map("users")
+}
+
+model Student {
+  id           String        @id @default(cuid())
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  university   String
+  course       String
+  yearOfStudy  Int
+  skills       String[]
+  cvUrl        String?
+  bio          String?
+  applications Application[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("students")
+}
+
+model Company {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  logoUrl     String?
+  website     String?
+  industry    String
+  description String?
+  verified    Boolean      @default(false)
+  internships Internship[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("companies")
+}
+
+model Internship {
+  id              String        @id @default(cuid())
+  companyId       String
+  company         Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  title           String
+  field           String
+  description     String
+  requirements    String[]
+  skills          String[]
+  location        String
+  remote          Boolean       @default(false)
+  durationMonths  Int
+  stipendAmount   Float?
+  stipendCurrency String?
+  minYear         Int           @default(1)
+  maxYear         Int           @default(4)
+  deadline        DateTime
+  status          ListingStatus @default(PENDING)
+  applications    Application[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("internships")
+}
+
+model Application {
+  id           String     @id @default(cuid())
+  studentId    String
+  student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  internshipId String
+  internship   Internship @relation(fields: [internshipId], references: [id], onDelete: Cascade)
+  status       AppStatus  @default(SUBMITTED)
+  coverLetter  String?
+  cvUrl        String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([studentId, internshipId])
+  @@map("applications")
+}
