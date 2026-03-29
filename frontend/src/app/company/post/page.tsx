@@ -31,8 +31,8 @@ export default function PostInternshipPage() {
     try {
       await internshipApi.create({
         ...form,
-        stipendAmount:  form.stipendAmount ? Number(form.stipendAmount) : undefined,
-        stipendCurrency:form.stipendAmount ? form.stipendCurrency : undefined,
+        stipendAmount:  form.stipendAmount ? Number(form.stipendAmount) : null,
+        stipendCurrency:form.stipendAmount ? form.stipendCurrency : null,
         durationMonths: Number(form.durationMonths),
         requirements:   form.requirements.split('\n').map(s => s.trim()).filter(Boolean),
         skills:         form.skills.split(',').map(s => s.trim()).filter(Boolean),
