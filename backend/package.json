@@ -14,13 +14,12 @@
     "@hono/node-server": "^1.12.0",
     "@hono/zod-validator": "^0.4.1",
     "@prisma/client": "^5.18.0",
+    "@types/node": "^22.0.0",
     "hono": "^4.5.0",
+    "prisma": "^5.18.0",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
     "zod": "^3.23.8"
   },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "prisma": "^5.18.0"
-  }
+  "devDependencies": {}
 }
