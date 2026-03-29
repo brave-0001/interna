@@ -8,9 +8,48 @@ type Props = {
   onClear:      (key: keyof InternshipFilters) => void
 }
 
-const FIELDS    = ['Software Engineering', 'Data Science', 'Design', 'Finance', 'Marketing']
-const LOCATIONS = ['Nairobi', 'Lagos', 'Cape Town', 'Accra', 'Remote']
-const DURATIONS = [{ label: '3 months', value: 3 }, { label: '6 months', value: 6 }, { label: '12 months', value: 12 }]
+const FIELDS = [
+  // Technology
+  'Software Engineering', 'Data Science', 'Cybersecurity', 'IT Support', 'AI & Machine Learning',
+  // Business
+  'Finance', 'Accounting', 'Marketing', 'Human Resources', 'Operations', 'Procurement', 'Entrepreneurship',
+  // Education
+  'Education Science', 'Early Childhood Education', 'Special Needs Education', 'Curriculum Development',
+  // Health
+  'Medicine', 'Nursing', 'Public Health', 'Pharmacy', 'Nutrition & Dietetics', 'Clinical Psychology',
+  // Engineering
+  'Civil Engineering', 'Mechanical Engineering', 'Electrical Engineering', 'Chemical Engineering', 'Environmental Engineering',
+  // Agriculture
+  'Agriculture', 'Agribusiness', 'Food Science', 'Veterinary Science', 'Horticulture',
+  // Science
+  'Biology', 'Chemistry', 'Physics', 'Mathematics', 'Environmental Science',
+  // Social Sciences
+  'Economics', 'Sociology', 'Psychology', 'Political Science', 'International Relations',
+  // Law
+  'Law', 'Paralegal Studies',
+  // Arts & Media
+  'Journalism', 'Communication', 'Media Production', 'Graphic Design', 'Architecture',
+  // Hospitality
+  'Hospitality Management', 'Tourism', 'Events Management',
+]
+const LOCATIONS = [
+  'Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret',
+  'Thika', 'Malindi', 'Kitale', 'Garissa', 'Kakamega',
+  'Nyeri', 'Machakos', 'Meru', 'Kisii', 'Kericho',
+  'Embu', 'Migori', 'Homabay', 'Bungoma', 'Kilifi',
+  'Remote'
+]
+
+const DURATIONS = [
+  { label: '1 month',  value: 1 },
+  { label: '2 months', value: 2 },
+  { label: '3 months', value: 3 },
+  { label: '4 months', value: 4 },
+  { label: '5 months', value: 5 },
+  { label: '6 months', value: 6 },
+  { label: '8 months', value: 8 },
+  { label: '12 months', value: 12 },
+]
 
 export function FilterBar({ filters, onChange, onClear }: Props) {
   const activePills: { label: string; key: keyof InternshipFilters }[] = []
